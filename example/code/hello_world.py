@@ -4,6 +4,8 @@ import pika
 
 
 def hello_world() -> None:
+    # We need to start a new thread to receive messages
+    # because channel.start_consuming() is blocking
     thread1 = Thread(target=receive)
     thread1.start()
 
