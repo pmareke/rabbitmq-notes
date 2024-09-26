@@ -77,12 +77,40 @@ called the explicit acknowledgement model.
     - Expiration period.
     - Publisher application id.
 
+## How to Use RabbitMQ
+
 ## Hello World!
 
 - A producer (sender) that sends a single message.
     - Producer sends messages to the "hello" queue.
+    - Producing means nothing more than sending.
+    - Many producers can send messages that go to one queue
 - A consumer (receiver) that receives messages and prints them out.
     - Consumer receives messages from the "hello" queue.
+    - Consuming has a similar meaning to receiving.
+    - A consumer is a program that mostly waits to receive messages.
+    - Many consumers can try to receive data from one queue.
+- A queue is the name for the post box in RabbitMQ. 
+
+### Code
+ 
+- In this part of the tutorial we'll write two small programs in Python:
+    - A producer (sender) that sends a single message.
+    - A consumer (receiver) that receives messages and prints them out.
+- Before sending we need to make sure the recipient queue exist.
+- In RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
+    - To use a default exchange identified by an empty string.
+- The queue name needs to be specified in the routing_key parameter.
+- Before exiting the program we need to make sure the network buffers were flushed and our message was actually delivered to RabbitMQ.
+    - We can do it by gently closing the connection.
+- `queue_declare` is idempotent ‒ we can run the command as many times as we like, and only one will be created.
+- Receiving messages from the queue is more complex.
+    - It works by subscribing a callback function to a queue.
+    - Whenever we receive a message, this callback function is called.
+- First called the receive function to block and wait for messages.
+    - The reciever should be running before the sender.
+- Then called the send function to send a single message.
+- Then the receiver will print the message.
 
 ## Work Queues
 

@@ -8,8 +8,6 @@ COPY pyproject.toml /app
 
 RUN poetry install
 
-COPY main.py /app/main.py
-
 COPY code /app/code
 
 ENTRYPOINT ["poetry", "run", "python", "main.py"]
