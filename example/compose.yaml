@@ -1,0 +1,20 @@
+services:
+  hello-world:
+    build: .
+    entrypoint: poetry run python code/hello_world.py
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: 'rabbitmq:3.13-management'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
