@@ -9,6 +9,10 @@ help:  ## show this help.
 hello-world: ## set up the local environment (e.g. install git hooks)
 	docker compose up --build hello-world
 
+.PHONY: work-queues
+work-queues: ## set up the local environment (e.g. install git hooks)
+	docker compose up --build work-queues
+
 .PHONY: down
 down: ## Stop and remove all the Docker services, volumes and networks
 	docker compose down -v --remove-orphans

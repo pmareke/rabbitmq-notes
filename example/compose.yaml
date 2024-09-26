@@ -7,6 +7,14 @@ services:
     depends_on:
       - rabbitmq
 
+  work-queues:
+    build: .
+    entrypoint: poetry run python code/work_queues.py
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+
   rabbitmq:
     image: 'rabbitmq:3.13-management'
     ports:
