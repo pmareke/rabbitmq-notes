@@ -206,6 +206,15 @@ processed fully and will re-queue it.
 
 ## Routing
 
+- `Subscribe` only to a subset of the messages.
+- A `binding` is a `relationship` between an `exchange` and a `queue`.
+    - The `queue` is interested in messages from this exchange.
+- `Bindings` can take an extra `routing_key` parameter.
+- The meaning of a binding key depends on the exchange type.
+- The routing algorithm behind a direct exchange is simple:
+    - A message goes to the queues whose binding key exactly matches the routing key of the message.
+- It is perfectly legal to bind multiple queues with the same binding key.
+
 ## Topics
 
 ## RPC

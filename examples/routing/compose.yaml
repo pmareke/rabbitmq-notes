@@ -1,0 +1,51 @@
+services:
+  producer:
+    build: producer
+    volumes:
+      - ./producer:/app
+    depends_on:
+      - info
+      - warn
+      - error
+
+  info:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - SEVERITY=INFO
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  warn:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - SEVERITY=WARN
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  error:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - SEVERITY=ERROR
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: 'rabbitmq:3.13-management'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
