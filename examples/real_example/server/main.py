@@ -47,11 +47,10 @@ def emmit_event(event_name: str, name: str | None = None) -> None:
     channel = connection.channel()
     channel.queue_declare(queue="hello")
 
+    payload = {"event": event_name}
     if name:
-        payload = json.dumps({"event": event_name, "name": name})
-    else:
-        payload = json.dumps({"event": event_name})
+        payload.update({"name": name})
 
-    channel.basic_publish(exchange="", routing_key="hello", body=payload)
-    print(f" [x] Sent '{payload}'")
+    channel.basic_publish(exchange="", routing_key="hello", body=json.dumps(payload))
+    print(f" [x] Sent '{json.dumps(payload)}'")
     connection.close()
