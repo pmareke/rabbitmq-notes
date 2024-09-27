@@ -16,13 +16,13 @@ users: dict[str, User] = {}
 
 @app.get("/api/v1/users")
 def get_users() -> list[User]:
-    send("list_users")
+    emmit_event("list_users")
     return [user for user in users.values()]
 
 
 @app.get("/api/v1/users/{name}")
 def get_user(name: str) -> User:
-    send("get_user", name)
+    emmit_event("get_user", name)
     return users.get(name)
 
 
@@ -30,7 +30,7 @@ def get_user(name: str) -> User:
 def add_user(name: str) -> User:
     user = User(name=name)
     users[name] = user
-    send("add_user", name)
+    emmit_event("add_user", name)
     return user
 
 
@@ -38,11 +38,11 @@ def add_user(name: str) -> User:
 def delete_user(name: str) -> User:
     user = users[name]
     del users[name]
-    send("delete_user", name)
+    emmit_event("delete_user", name)
     return user
 
 
-def send(event_name: str, name: str | None = None) -> None:
+def emmit_event(event_name: str, name: str | None = None) -> None:
     connection = pika.BlockingConnection(pika.ConnectionParameters(host="rabbitmq"))
     channel = connection.channel()
     channel.queue_declare(queue="hello")
