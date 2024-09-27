@@ -133,12 +133,8 @@ called the explicit acknowledgement model.
     - A consumer is a program that mostly waits to receive messages.
     - Many consumers can try to receive data from one queue.
 - A `queue` is the name for the post box in RabbitMQ. 
-
-### Code
- 
-- In this part of the tutorial we'll write two microservices:
-    - A `producer` (sender) that sends messages.
-    - A `consumer` (receiver) that receives messages and prints them out.
+- A `producer` (sender) that sends messages.
+- A `consumer` (receiver) that receives messages and prints them out.
 - Before sending we need to make sure the recipient queue exist.
 - In `RabbitMQ` a message can never be sent directly to the `queue`, it always needs to go through an `exchange`.
     - To use a `default exchange` identified by an empty string.
@@ -155,6 +151,35 @@ called the explicit acknowledgement model.
 - Then the receiver will print the message.
 
 ## Work Queues
+
+- Also known as `Task Queues`.
+- Used to avoid doing a resource-intensive task immediately and having to wait for it to complete.
+- A task is sent as a message and send it to the queue.
+- A `worker` process running in the background will pop the tasks and eventually execute the job.
+- When you run many workers the tasks will be shared between them.
+- One of the advantages of using a `Task Queue` is the ability to easily `parallelise` work.
+- By `default`, `RabbitMQ` will send each message to the next consumer, in `sequence`.
+    - On average every consumer will get the same number of messages.
+    - This way of distributing messages is called round-robin
+- By `default` once `RabbitMQ` delivers message to the `consumer`, it immediately marks it for `deletion`.
+    - In this case, if you terminate a worker, the message it was just processing is lost. 
+    - In order to make sure a message is never lost, RabbitMQ supports message acknowledgments.
+- If a `consumer` dies without sending an ack, RabbitMQ will understand that a message wasn't 
+processed fully and will re-queue it.
+- A `timeout` (30 minutes by default) is enforced on consumer delivery `acknowledgement`.
+- `Manual` message `acknowledgments` are turned on by default.
+    - It can be turned off via the `auto_ack` parameter.
+- `Acknowledgement` must be sent on the same channel that received the delivery. 
+    - ` ch.basic_ack(delivery_tag=method.delivery_tag)`.
+- When `RabbitMQ` quits or crashes it will forget the queues and messages unless you tell it not to.
+- To make sure that messages aren't lost we need to mark both the queue and messages as durable.
+    - `channel.queue_declare(queue='hello', durable=True)`.
+- To mark our `messages` as `persistent`:
+    - Supply a `delivery_mode` property with the value of `pika.DeliveryMode.Persistent`.
+- `RabbitMQ` doesn't know anything about that and will still dispatch messages evenly.
+    - `RabbitMQ` just dispatches a message when the message enters the queue.
+    - The `Channel#basic_qos` channel method with the `prefetch_count=1` setting tell RabbitMQ not 
+    to give more than one message to a worker at a time.
 
 ## Publish/Subscribe
 

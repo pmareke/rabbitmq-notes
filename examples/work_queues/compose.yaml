@@ -1,0 +1,30 @@
+services:
+  producer:
+    build: producer
+    volumes:
+      - ./producer:/app
+    depends_on:
+      - consumer
+
+  consumer:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    deploy:
+      mode: replicated
+      replicas: 2
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: 'rabbitmq:3.13-management'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
