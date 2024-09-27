@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "example"
+name = "producer"
 version = "0.1.0"
 description = ""
 authors = ["Pedro López Mareque <pedro.lopez.mareque@gmail.com>"]

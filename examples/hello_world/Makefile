@@ -5,13 +5,9 @@ help:  ## show this help.
 	@grep -e '^\s+:.*?## .*$$' $(firstword $(makefile_list)) | \
 		awk 'begin {fs = ":.*?## "}; {printf "%-30s %s\n", $$1, $$2}'
 
-.PHONY: hello-world
-hello-world: ## set up the local environment (e.g. install git hooks)
-	docker compose up --build hello-world
-
-.PHONY: work-queues
-work-queues: ## set up the local environment (e.g. install git hooks)
-	docker compose up --build work-queues
+.PHONY: up
+up:
+	docker compose up --build
 
 .PHONY: down
 down: ## Stop and remove all the Docker services, volumes and networks

@@ -1,19 +1,19 @@
 services:
-  hello-world:
-    build: .
-    entrypoint: poetry run python code/hello_world.py
+  producer:
+    build: producer
     volumes:
-      - .:/app
+      - ./producer:/app
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
-  work-queues:
-    build: .
-    entrypoint: poetry run python code/work_queues.py
+  consumer:
+    build: consumer
     volumes:
-      - .:/app
+      - ./consumer:/app
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   rabbitmq:
     image: 'rabbitmq:3.13-management'
