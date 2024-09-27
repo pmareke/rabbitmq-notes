@@ -107,7 +107,6 @@ called the explicit acknowledgement model.
     - Consuming with only one consumer is useful when messages must be consumed 
     and processed in the same order they arrive in the queue.
 
-
 ### Queues
 
 - A `queue` in RabbitMQ is an ordered collection of `messages`. 
