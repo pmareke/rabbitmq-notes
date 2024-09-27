@@ -183,6 +183,27 @@ processed fully and will re-queue it.
 
 ## Publish/Subscribe
 
+- This `pattern` delivers a message to `multiple` consumers.
+- Every running copy of the receiver program will get the messages.
+- A `producer` is a user application that sends messages.
+- A `queue` is a buffer that stores messages.
+- A `consumer` is a user application that receives messages.
+- The core idea in the messaging model in `RabbitMQ` is that the `producer` never sends any messages directly to a `queue`.
+- Instead, the `producer` can only send messages to an `exchange`.
+- An `exchange` is a very simple thing:
+    - On one side it receives messages from producers.
+    - On the other side it pushes them to queues.
+    - The exchange must know exactly what to do with a message it receives.
+    - The rules for that are defined by the exchange type.
+- There are a few exchange `types` available: 
+    - `Direct`: delivers messages to queues based on the message routing key.
+    - `Topic`: routes messages to one or many queues based on matching between a message routing key.
+    - `Headers`: routing on multiple attributes that are more easily expressed as message headers than a routing key.
+    - `Fanout`: broadcasts all the messages it receives to all the queues it knows. 
+- To `create` a `queue` with a random name, supply empty queue parameter to `queue_declare`.
+- To `remove` a `queue` when the consumer connection is closed, use the `exclusive` parameter.
+- That `relationship` between `exchange` and a `queue` is called a `binding`.
+
 ## Routing
 
 ## Topics
