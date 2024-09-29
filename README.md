@@ -121,7 +121,7 @@ called the explicit acknowledgement model.
 - Much like `connections`, `channels` are meant to be long lived.
 - When a channel's connection is closed, so is the channel.
 
-# Exercises
+# [Exercises](https://www.rabbitmq.com/tutorials)
 
 ## [Hello World!](https://www.rabbitmq.com/tutorials/tutorial-one-python)
 
