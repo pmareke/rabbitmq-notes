@@ -1,4 +1,4 @@
-# RabbitMQ
+# [RabbitMQ](https://www.rabbitmq.com/)
 
 - One broker to queue them all.
 - RabbitMQ is a reliable and mature messaging and streaming broker.
@@ -121,7 +121,7 @@ called the explicit acknowledgement model.
 - Much like `connections`, `channels` are meant to be long lived.
 - When a channel's connection is closed, so is the channel.
 
-## Hello World!
+## [Hello World!](https://www.rabbitmq.com/tutorials/tutorial-one-python)
 
 - A `producer` (sender) that sends a single message.
     - Producer `sends` messages to the "hello" queue.
@@ -150,7 +150,7 @@ called the explicit acknowledgement model.
 - Then called the send function to send a single message.
 - Then the receiver will print the message.
 
-## Work Queues
+## [Work Queues](https://www.rabbitmq.com/tutorials/tutorial-two-python)
 
 - Also known as `Task Queues`.
 - Used to avoid doing a resource-intensive task immediately and having to wait for it to complete.
@@ -181,7 +181,7 @@ processed fully and will re-queue it.
     - The `Channel#basic_qos` channel method with the `prefetch_count=1` setting tell RabbitMQ not 
     to give more than one message to a worker at a time.
 
-## Publish/Subscribe
+## [Publish/Subscribe](https://www.rabbitmq.com/tutorials/tutorial-three-python)
 
 - This `pattern` delivers a message to `multiple` consumers.
 - Every running copy of the receiver program will get the messages.
@@ -204,7 +204,7 @@ processed fully and will re-queue it.
 - To `remove` a `queue` when the consumer connection is closed, use the `exclusive` parameter.
 - That `relationship` between `exchange` and a `queue` is called a `binding`.
 
-## Routing
+## [Routing](https://www.rabbitmq.com/tutorials/tutorial-four-python))
 
 - `Subscribe` only to a subset of the messages.
 - A `binding` is a `relationship` between an `exchange` and a `queue`.
@@ -215,7 +215,7 @@ processed fully and will re-queue it.
     - A message goes to the queues whose binding key exactly matches the routing key of the message.
 - It is perfectly legal to bind multiple queues with the same binding key.
 
-## Topics
+## [Topics](https://www.rabbitmq.com/tutorials/tutorial-five-python)
 
 - The `direct` echange can't do routing based on multiple criteria.
 - The `topic` exchange can do routing based on multiple criteria.
