@@ -87,10 +87,10 @@ called the explicit acknowledgement model.
     - `Exchanges` are named routing tables.
     - `Table` entries are called bindings.
 - There are several built-in exchange `types`:
-    - Topic.
-    - Fanout.
-    - Direct (including the default exchange).
-    - Headers.
+    - `Topic`.
+    - `Fanout`.
+    - `Direct`.
+    - `Headers`.
 
 ### Consumers
 
