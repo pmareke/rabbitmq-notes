@@ -206,7 +206,7 @@ processed fully and will re-queue it.
 - To `remove` a `queue` when the consumer connection is closed, use the `exclusive` parameter.
 - That `relationship` between `exchange` and a `queue` is called a `binding`.
 
-## [Routing](https://www.rabbitmq.com/tutorials/tutorial-four-python))
+## [Routing](https://www.rabbitmq.com/tutorials/tutorial-four-python)
 
 - `Subscribe` only to a subset of the messages.
 - A `binding` is a `relationship` between an `exchange` and a `queue`.
