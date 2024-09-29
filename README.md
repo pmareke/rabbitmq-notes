@@ -217,7 +217,16 @@ processed fully and will re-queue it.
 
 ## Topics
 
-## RPC
-
-## Publisher Confirms
+- The `direct` echange can't do routing based on multiple criteria.
+- The `topic` exchange can do routing based on multiple criteria.
+- `Messages` sent to a `topic exchange` can't have an arbitrary `routing_key`.
+    - The routing key must be a list of words, delimited by dots.
+- The `binding` key must also be in the same form.
+- The logic behind the topic exchange is similar to a direct, but:
+    - It allows for `wildcards`.
+    - `*` can substitute for exactly `one` word.
+    - `#` can substitute for `zero` or `more` words.
+- When a `queue` is bound with `#` binding key, it will receive `all` the messages.
+- When special characters `*` and `#` aren't used in bindings, the topic exchange will behave just like a `direct` one.
+- If the messages won't match any bindings and will be lost.
 

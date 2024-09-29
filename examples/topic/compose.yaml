@@ -1,0 +1,50 @@
+services:
+  producer:
+    build: producer
+    volumes:
+      - ./producer:/app
+    depends_on:
+      - all
+      - kern
+      - critical 
+
+  all:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - ROUTING_KEY=#
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+  kern:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - ROUTING_KEY=kern.*
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  critical:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    environment:
+      - ROUTING_KEY=*.critical
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: 'rabbitmq:3.13-management'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
