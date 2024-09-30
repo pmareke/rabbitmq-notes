@@ -14,7 +14,7 @@ def receive() -> None:
         properties: BasicProperties,
         body: bytes,
     ) -> None:
-        print(f" [x] Received {body}")
+        print(f" [x] Received {body.decode()}")
 
     channel.basic_consume(queue="hello", on_message_callback=_callback, auto_ack=True)
     print(" [*] Waiting for messages. To exit press CTRL+C")
