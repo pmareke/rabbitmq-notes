@@ -254,3 +254,14 @@ processed fully and will re-queue it.
 - When special characters `*` and `#` aren't used in bindings, the topic exchange will behave just like a `direct` one.
 - If the messages won't match any bindings and will be lost.
 
+## [Hello World Streams](https://www.rabbitmq.com/tutorials/tutorial-one-python-stream)
+
+- The producer will also declare a stream it will publish messages to and then publish a message.
+- The stream declaration operation is idempotent.
+- A stream is an append-only log abstraction that allows for repeated consumption of messages until they expire.
+- The message content is a byte array.
+- `offset_specification` defines the starting point of the consumer.
+
+## [Offset Tracking](https://www.rabbitmq.com/tutorials/tutorial-two-python-stream)
+
+- TBD
