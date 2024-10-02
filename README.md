@@ -115,6 +115,28 @@ called the explicit acknowledgement model.
 - `Queue` names starting with "amq." are reserved.
 - `Queues` can be durable or transient.
 
+### Streams
+
+- Is a `persistent` replicated `data structure` that can complete the same tasks as `queues`.
+- `Streams` differ from `queues` in two important ways:
+    - How messages are `stored`.
+    - How messages are `consumed`.
+- `Streams` model an append-only log of messages that can be repeatedly read until they expire.
+- `Streams` are always `persistent` and `replicated`.
+- `Streams` model an append-only log of messages that can be `repeatedly read` until they expire.
+- `Streams` were developed to initially cover 4 messaging `use-cases`:
+    - `Large fanouts`:
+        - When wanting to deliver the same message to multiple subscribers users.
+        - Streams will allow any number of consumers to consume the same messages from the same queue in a non-destructive manner.
+    - `Replay (Time-travelling)`:
+        - In `queues` is not possible to re-read messages that have been consumed.
+        - `Streams` will allow consumers to attach at any point in the log and read from there.
+    - `Throughput Performance`:
+        - `Streams` have been designed with performance as a major goal.
+    - `Large backlogs`:
+        - `Queues` can perform really bad when there are millions of messages.
+        - `Streams` are designed to store larger amounts of data in an efficient manner with minimal in-memory overhead.
+
 ### Channels
 
 - `Applications` open a channel right after successfully opening a connection.
