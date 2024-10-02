@@ -1,0 +1,31 @@
+services:
+  producer:
+    build: producer
+    volumes:
+      - ./producer:/app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  consumer:
+    build: consumer
+    volumes:
+      - ./consumer:/app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: 'rabbitmq:3.13-management'
+    ports:
+      - '5552:5552'
+      - '5672:5672'
+      - '15672:15672'
+    volumes:
+    - "$PWD/rabbit_enabled_plugins:/etc/rabbitmq/enabled_plugins"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
