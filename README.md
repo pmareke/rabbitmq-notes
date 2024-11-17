@@ -47,6 +47,16 @@ pattern that was used to bind a queue to an exchange.
     - `Auto-delete` (queue that has had at least one consumer is deleted when last consumer unsubscribes).
     - `Arguments` (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc).
 
+### Dead Letters
+
+- Messages from a queue can be `dead-lettered`.
+    - `nack(tag, requeue=False)`.
+    - If the message can not be processed it will be republished to an exchange (DLX).
+- `Dead letter` exchanges (DLXs) are normal exchanges.
+    - First declare the exchange.
+    - Later set the `args={"x-dead-letter-exchange": "some.exchange.name"}` prop in any `Queue` you want to "protect".
+    - Finally create another queue to read from the `Exchange`.
+
 ### Bindings
 
 - They are `rules` that `exchanges` use to route `messages` to `queues`.
